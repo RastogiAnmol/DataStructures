@@ -1,0 +1,57 @@
+#include <iostream>
+struct Node 
+{ 
+int data; 
+Node *next; 
+};
+
+Node* head = NULL;
+
+Node* Add(int data);
+
+void PrintUsingRecursion(Node *linkedNode);
+void ReversePrintUsingRecursion(Node *linkedNode);
+Node* Add(int data)
+{
+    Node* nodeToBeInserted= new Node();
+    nodeToBeInserted->data= data;
+    nodeToBeInserted->next= head;
+    head= nodeToBeInserted;
+    return head;
+}
+void PrintUsingRecursion(Node *linkedNode)
+{
+  if(linkedNode == NULL)
+  {
+    std::cout << "\n";
+    return;
+  }
+  std::cout << linkedNode->data;
+  PrintUsingRecursion(linkedNode->next);
+}
+void ReversePrintUsingRecursion(Node *linkedNode)
+{
+    if(linkedNode == NULL)
+  {
+    return;
+  }
+  ReversePrintUsingRecursion(linkedNode->next);
+  
+  std::cout << linkedNode->data;
+}
+int main() 
+{
+head = Add(9);
+head = Add(8);
+head = Add(7);
+head = Add(6);
+head = Add(5);
+head = Add(4);
+head = Add(3);
+head = Add(2);
+head = Add(1);
+PrintUsingRecursion(head);
+std::cout << "\nReverse print\n";
+ReversePrintUsingRecursion(head);
+return 0; 
+} 
