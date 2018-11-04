@@ -1,0 +1,42 @@
+#include "pch.h"
+#include <iostream>
+using namespace std;
+int BinarySearch(int arr[],int arrayLength, int numberTofind)
+{
+	int low = 0;
+	int high = arrayLength - 1;//length of the array
+	
+	while (low <= high)
+	{
+		int mid = (low + high) / 2;
+		if (numberTofind == arr[mid])
+		{
+			return mid;
+		}
+		else if (numberTofind < arr[mid])
+		{
+			high = mid - 1;
+		}
+		else
+		{
+			low = mid + 1;
+		}
+	}
+	return -1;
+}
+int main()
+{
+	int a[] = {2,4,5,7,12,16,18,23};
+	cout << "Enter any number to find \n";
+	int number;
+	cin >> number;
+	int index = BinarySearch(a,8, number);
+	if (index!=-1)
+	{
+		cout << "\nElement found at " << index << " position";
+	}
+	else
+	{
+		cout << "Element not found";
+	}
+}
