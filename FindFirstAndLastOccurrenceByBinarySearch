@@ -62,7 +62,8 @@ int main()
 	if (firstIndex!=-1 && lastIndex != -1)
 	{
 		cout << "\nElement first found at " << firstIndex << " position\n";
-		cout << "\nElement last found at " << lastIndex << " position";
+		cout << "\nElement last found at " << lastIndex << " position\n";
+		cout << "\nTotal occurences are "<< lastIndex - firstIndex + 1;
 	}
 	else
 	{
