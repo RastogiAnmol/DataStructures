@@ -1,0 +1,159 @@
+
+#include "pch.h"
+#include <iostream>
+#include <algorithm>
+#include <queue>
+using namespace std;
+//Definition of Node for Binary search tree
+struct BstNode {
+	int data;
+	BstNode* left;
+	BstNode* right;
+};
+
+// Function to create a new Node in heap
+BstNode* GetNewNode(int data) {
+	BstNode* newNode = new BstNode();
+	newNode->data = data;
+	newNode->left = newNode->right = NULL;
+	return newNode;
+}
+
+// To insert data in BST, returns address of root node 
+BstNode* Insert(BstNode* root, int data) {
+	if (root == NULL) { // empty tree
+		root = GetNewNode(data);
+	}
+	// if data to be inserted is lesser, insert in left subtree. 
+	else if (data <= root->data) {
+		root->left = Insert(root->left, data);
+	}
+	// else, insert in right subtree. 
+	else {
+		root->right = Insert(root->right, data);
+	}
+	return root;
+}
+
+// Function to print Nodes in a binary tree in Level order
+void LevelOrder(BstNode* root) {
+	if (root == NULL) return;
+	queue<BstNode*> Q;
+	Q.push(root);
+
+	//while there is at least one discovered node
+	while (!Q.empty()) {
+		BstNode* current = Q.front();
+		Q.pop(); // removing the element at front
+		cout << current->data << " ";
+		if (current->left != NULL) Q.push(current->left);
+		if (current->right != NULL) Q.push(current->right);
+	}
+}
+
+// DLR
+void PreOrderDFS(BstNode* root)
+{
+	if (root == NULL)
+	{
+		return;
+	}
+	cout << " " << root->data;
+	PreOrderDFS(root->left);
+	PreOrderDFS(root->right);
+}
+
+// LDR
+void InOrderDFS(BstNode* root)
+{
+	if (root == NULL)
+	{
+		return;
+	}
+	InOrderDFS(root->left);
+	cout << " "<< root->data;
+	InOrderDFS(root->right);
+}
+
+// LRD
+void PostOrderDFS(BstNode* root)
+{
+	if (root == NULL)
+	{
+		return;
+	}
+	InOrderDFS(root->left);
+	InOrderDFS(root->right);
+	cout <<" "<< root->data;
+}
+bool IsBinarySearchTreeIntermediate(BstNode* root, int minValue, int maxValue)
+{
+	if (root== NULL)
+	{
+		return true;
+	}
+	if (root->data > minValue
+		&& root->data < maxValue
+		&& IsBinarySearchTreeIntermediate(root->left,minValue,root->data)
+		&& IsBinarySearchTreeIntermediate(root->right,root->data,maxValue))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+bool IsBinarySearchTree(BstNode* root)
+{
+	return IsBinarySearchTreeIntermediate(root, 0, 500);
+}
+int main() {
+	BstNode* root = NULL;  // Creating an empty tree
+	/*Code to test the logic*/
+	root = Insert(root, 15);
+	root = Insert(root, 10);
+	root = Insert(root, 20);
+	root = Insert(root, 25);
+	root = Insert(root, 8);
+	root = Insert(root, 12);
+	root = Insert(root, 14);
+	// check if the Binary tree is Binary Search Tree
+	if (IsBinarySearchTree(root))
+	{
+		cout << "\n";
+		cout << "\nIt is a BinarySearchTree\n";
+		cout << "\n";
+	}
+	else
+	{
+		cout << "\n";
+		cout << "\nNot a BinarySearchTree\n";
+		cout << "\n";
+	}
+	// BFS traversal
+	cout << "\n";
+	cout << "\nLevel Order\n";
+	cout << "\n";
+	LevelOrder(root);
+
+	// DFS traversal
+
+   // PreOrder
+	cout << "\n";
+	cout << "\nPreOrder\n";
+	cout << "\n";
+	PreOrderDFS(root);
+
+	// InOrder
+	cout << "\n";
+	cout << "\nInOrder\n";
+	cout << "\n";
+	InOrderDFS(root);
+
+	// PostOrder
+	cout << "\n";
+	cout << "\nPostOrder\n";
+	cout << "\n";
+	PostOrderDFS(root);
+}
