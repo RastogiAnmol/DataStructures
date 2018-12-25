@@ -123,6 +123,7 @@ class LinkedList:
 
         second_half = self.reverse(second_half)
 
+        """If mid_node is not none then it is a odd list else even list"""
         if mid_node is not None:
             prev_of_slow_ptr.next = mid_node
             mid_node.next = second_half
