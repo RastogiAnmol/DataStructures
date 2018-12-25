@@ -121,7 +121,7 @@ class LinkedList:
         second_half = self.reverse(second_half)
         res = self.compare_lists(second_half)
 
-        self.reverse(second_half)
+        second_half = self.reverse(second_half)
 
         if mid_node is not None:
             prev_of_slow_ptr.next = mid_node
@@ -143,5 +143,6 @@ linked_list.print_list()
 
 res = linked_list.check_palindrome()
 print(res)
+linked_list.print_list()
 
 
